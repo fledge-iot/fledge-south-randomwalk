@@ -7,7 +7,6 @@
 """ Module for RandomWalk poll mode plugin """
 
 import copy
-import uuid
 import logging
 
 from fledge.common import logger
@@ -109,7 +108,6 @@ def plugin_poll(handle):
         data = {
             'asset': handle['assetName']['value'],
             'timestamp': time_stamp,
-            'key': str(uuid.uuid4()),
             'readings': {
                 "randomwalk": new
             }
