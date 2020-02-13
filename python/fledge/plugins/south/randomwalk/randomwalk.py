@@ -32,7 +32,8 @@ _DEFAULT_CONFIG = {
         'description': 'Name of Asset',
         'type': 'string',
         'default': 'randomwalk',
-        'order': '1'
+        'order': '1',
+        'mandatory': 'true'
     },
     'minValue': {
         'displayName': 'Minimum Value',
