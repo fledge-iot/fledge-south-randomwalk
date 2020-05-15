@@ -7,7 +7,6 @@
 """ Module for RandomWalk poll mode plugin """
 
 import copy
-import uuid
 import logging
 
 from fledge.common import logger
@@ -33,7 +32,8 @@ _DEFAULT_CONFIG = {
         'description': 'Name of Asset',
         'type': 'string',
         'default': 'randomwalk',
-        'order': '1'
+        'order': '1',
+        'mandatory': 'true'
     },
     'minValue': {
         'displayName': 'Minimum Value',
@@ -63,7 +63,7 @@ def plugin_info():
     """
     return {
         'name': 'RandomWalk Poll plugin',
-        'version': '1.7.0',
+        'version': '1.8.0',
         'mode': 'poll',
         'type': 'south',
         'interface': '1.0',
@@ -109,7 +109,6 @@ def plugin_poll(handle):
         data = {
             'asset': handle['assetName']['value'],
             'timestamp': time_stamp,
-            'key': str(uuid.uuid4()),
             'readings': {
                 "randomwalk": new
             }
