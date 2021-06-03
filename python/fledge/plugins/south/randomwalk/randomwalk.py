@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # FLEDGE_BEGIN
-# See: http://fledge.readthedocs.io/
+# See: http://fledge-iot.readthedocs.io/
 # FLEDGE_END
 
 """ Module for RandomWalk poll mode plugin """
@@ -63,7 +63,7 @@ def plugin_info():
     """
     return {
         'name': 'RandomWalk Poll plugin',
-        'version': '1.9.0',
+        'version': '1.9.1',
         'mode': 'poll',
         'type': 'south',
         'interface': '1.0',
