@@ -117,7 +117,7 @@ def plugin_poll(handle):
         handle['lastValue'] = new
 
     except (Exception, RuntimeError) as ex:
-        _LOGGER.exception("RandomWalk exception: {}".format(str(ex)))
+        _LOGGER.exception(ex, "{} plugin poll failed.".format(handle['plugin']['value']))
         raise ex
     else:
         return data
