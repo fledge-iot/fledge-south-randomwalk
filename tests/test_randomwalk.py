@@ -29,7 +29,7 @@ def test_plugin_contract():
 def test_plugin_info():
     assert randomwalk.plugin_info() == {
         'name': 'RandomWalk Poll plugin',
-        'version': '2.1.0',
+        'version': '2.2.0',
         'mode': 'poll',
         'type': 'south',
         'interface': '1.0',
