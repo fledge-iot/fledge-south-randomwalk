@@ -15,7 +15,7 @@ from fledge.plugins.common import utils
 from random import randint
 
 __author__ = "Bill Hunt"
-__copyright__ = "Copyright (c) 2019 ianomic Systems Inc."
+__copyright__ = "Copyright (c) 2019 Dianomic Systems Inc."
 __license__ = "Apache 2.0"
 __version__ = "${VERSION}"
 
@@ -40,14 +40,16 @@ _DEFAULT_CONFIG = {
         'description': 'Minimum value reading can go down to',
         'type': 'integer',
         'default': '10',
-        'order': '2'
+        'order': '2',
+        'mandatory': 'true'
     },
     'maxValue': {
         'displayName': 'Maximum Value',
         'description': 'Maximum value reading can go up to',
         'type': 'integer',
         'default': '100',
-        'order': '3'
+        'order': '3',
+        'mandatory': 'true'
     }
 }
 
