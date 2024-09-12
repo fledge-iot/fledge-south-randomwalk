@@ -15,7 +15,7 @@ from fledge.plugins.common import utils
 from random import randint
 
 __author__ = "Bill Hunt"
-__copyright__ = "Copyright (c) 2019 Dianomic Systems"
+__copyright__ = "Copyright (c) 2019 ianomic Systems Inc."
 __license__ = "Apache 2.0"
 __version__ = "${VERSION}"
 
@@ -96,15 +96,24 @@ def plugin_poll(handle):
         Exception
     """
     try:
-        if handle['lastValue'] is None:
-            new = randint(int(handle['minValue']['value']), int(handle['maxValue']['value']))
-        else:
-            new = handle['lastValue'] + randint(-1, 1)
-            if new > int(handle['maxValue']['value']):
-                new = int(handle['maxValue']['value'])
-            elif new < int(handle['minValue']['value']):
-                new = int(handle['minValue']['value'])
+        max_value = int(handle['maxValue']['value'])
+        min_value = int(handle['minValue']['value'])
+        last_value = handle['lastValue']
 
+        # The maximum value cannot be less than the minimum value.
+        # Therefore, setting the minimum value equal to the maximum value is required.
+        if max_value < min_value:
+            handle['minValue']['value'] = handle['maxValue']['value']
+            min_value = int(handle['minValue']['value'])
+
+        if last_value is None:
+            new = randint(min_value, max_value)
+        else:
+            new = last_value + randint(-1, 1)
+            if new > max_value:
+                new = max_value
+            elif new < min_value:
+                new = min_value
         time_stamp = utils.local_timestamp()
         data = {
             'asset': handle['assetName']['value'],
@@ -113,9 +122,7 @@ def plugin_poll(handle):
                 "randomwalk": new
             }
         }
-
         handle['lastValue'] = new
-
     except (Exception, RuntimeError) as ex:
         _LOGGER.exception("RandomWalk exception: {}".format(str(ex)))
         raise ex
