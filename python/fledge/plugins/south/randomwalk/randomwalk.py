@@ -135,10 +135,11 @@ def plugin_reconfigure(handle, new_config):
     _LOGGER.info("Old config for randomwalk plugin {} \n new config {}".format(handle, new_config))
     new_handle = copy.deepcopy(new_config)
     new_handle['lastValue'] = handle['lastValue']
-    if int(new_handle['maxValue']['value']) < int(new_handle['maxValue']['value']):
-        tmp = new_handle['minValue']
-        new_handle['minValue'] = new_handle['maxValue']
-        new_handle['minValue'] = tmp
+    max_value = int(handle['maxValue']['value'])
+    # The maximum value cannot be less than the minimum value.
+    # Therefore, setting the minimum value equal to the maximum value is required.
+    if max_value < int(new_handle['minValue']['value']):
+        new_handle['minValue']['value'] = max_value
     return new_handle
 
 
