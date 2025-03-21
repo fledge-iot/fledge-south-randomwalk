@@ -65,7 +65,7 @@ def plugin_info():
     """
     return {
         'name': 'RandomWalk Poll plugin',
-        'version': '2.6.0',
+        'version': '3.0.0',
         'mode': 'poll',
         'type': 'south',
         'interface': '1.0',
@@ -144,11 +144,13 @@ def plugin_reconfigure(handle, new_config):
     _LOGGER.info("Old config for randomwalk plugin {} \n new config {}".format(handle, new_config))
     new_handle = copy.deepcopy(new_config)
     new_handle['lastValue'] = handle['lastValue']
-    max_value = int(handle['maxValue']['value'])
+    max_value = int(new_handle['maxValue']['value'])
     # The maximum value cannot be less than the minimum value.
     # Therefore, setting the minimum value equal to the maximum value is required.
     if max_value < int(new_handle['minValue']['value']):
         new_handle['minValue']['value'] = max_value
+    if not(new_handle['lastValue'] <= int(new_handle['minValue']['value']) <= max_value):
+        new_handle['lastValue'] = randint(int(new_handle['minValue']['value']), max_value)
     return new_handle
 
 
